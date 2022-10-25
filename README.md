@@ -23,5 +23,11 @@
     - django-admin startproject pjt_django
 - 리뷰 앱 만들기 시작
     - django-admin startapp reviews
-    
+    - 첫 페이지(index.html)
+    - 글 쓰기 페이지(create.html) - CREATE
+    - index에 글 내용 보이게하기 - READ
+    - 글 삭제 - DELETE
+    - 글 수정 - UPDATE
+- 회원가입 앱(accounts) 만들기 시작
+    - 
 

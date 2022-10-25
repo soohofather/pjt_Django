@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h1>3. 디테일 페이지</h1><hr>
+<p>리뷰영화: {{ review.movie_name }}  |  평점: {{ review.grade }}</p>
+<h1>{{ review.title }}</h1>
+<p>{{ review.content }}<p>
+<a href="{% url 'reviews:update' review.pk %}">수정</a>
+<a href="{% url 'reviews:delete' review.pk %}">삭제</a>
+
+{% endblock body %}
