@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h1>7. 회원정보 페이지</h1><hr>
+<div class='text-end'>
+  <a href="{% url 'accounts:update' %}">회원정보 수정</a>
+</div>
+<h1>{{ user.username }}님의 프로필</h1>
+<p>이름 : {{ user.full_name}}</p>
+<p>E-mail : {{ user.email }}</p>
+<hr>
+
+
+{% endblock body %}
