@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from .forms import ReviewForm
-from .models import Review
+from .forms import ReviewForm, CommentForm
+from .models import Review, Comment
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -16,12 +17,15 @@ def index(request):
     return render(request, "reviews/index.html", context)
 
 
+@login_required
 def create(request):
 
     if request.method == "POST":
         review_form = ReviewForm(request.POST)
         if review_form.is_valid():
-            review_form.save()
+            review = review_form.save(commit=False)
+            review.user = request.user
+            review.save()
             return redirect("reviews:index")
     else:
         review_form = ReviewForm()
@@ -36,8 +40,11 @@ def detail(request, pk):
 
     review = Review.objects.get(pk=pk)
 
+    comment_form = CommentForm()
+
     context = {
         "review": review,
+        "comment_form": comment_form,
     }
 
     return render(request, "reviews/detail.html", context)
@@ -52,6 +59,7 @@ def delete(request, pk):
     return redirect("reviews:index")
 
 
+@login_required
 def update(request, pk):
 
     review = Review.objects.get(pk=pk)

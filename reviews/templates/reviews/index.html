@@ -4,30 +4,58 @@
 
 <h1>1.인덱스 페이지</h1>
 <hr>
-<div class='text-end'>
-    <a class='btn btn-primary btn-sm' href="{% url 'reviews:create' %}">글쓰기</a>
-</div>
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">리뷰 제목</th>
-        <th scope="col">생성일</th>
-      </tr>
-    </thead>
-    <tbody>
-        {% for i in review %}  
+{% if request.user.is_authenticated %}
+  <div class='text-end'>
+      <a class='btn btn-primary btn-sm' href="{% url 'reviews:create' %}">글쓰기</a>
+  </div>
+<div class='py-2'>
+  <table class="table">
+      <thead>
         <tr>
-        <th scope="row">{{ i.pk }}</th>
-        <td>
-            <a href="{% url 'reviews:detail' i.pk %}">{{ i.title }}</a>
-        </td>
-        <td>{{ i.created_at }}</td>
+          <th scope="col">#</th>
+          <th scope="col">리뷰 제목</th>
+          <th scope="col">생성일</th>
+          <th scope="col">글쓴이</th>
         </tr>
-        {% endfor %}
-    </tbody>
-  </table>
-
+      </thead>
+      <tbody>
+          {% for i in review %}  
+          <tr>
+          <th scope="row">{{ i.pk }}</th>
+          <td>
+              <a href="{% url 'reviews:detail' i.pk %}">{{ i.title }}</a>
+          </td>
+          <td>{{ i.created_at }}</td>
+          <td>
+            <a href="{% url 'accounts:detail' i.user.pk %}">{{ i.user }}</a>
+          </td>
+          </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class='py-2'>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">리뷰 제목</th>
+            <th scope="col">생성일</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in review %}  
+            <tr>
+            <th scope="row">{{ i.pk }}</th>
+            <td>{{ i.title }}</td>
+            <td>{{ i.created_at }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
 
 {% endblock body %}
 

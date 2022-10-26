@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load django_bootstrap5 %}
 
 {% block body %}
 
@@ -6,7 +7,17 @@
 <p>리뷰영화: {{ review.movie_name }}  |  평점: {{ review.grade }}</p>
 <h1>{{ review.title }}</h1>
 <p>{{ review.content }}<p>
-<a href="{% url 'reviews:update' review.pk %}">수정</a>
-<a href="{% url 'reviews:delete' review.pk %}">삭제</a>
+<div class='d-grid gap-2'>
+  <a class='btn btn-primary' href="{% url 'reviews:update' review.pk %}">수정</a>
+  <a class='btn btn-danger' href="{% url 'reviews:delete' review.pk %}">삭제</a>
+</div><hr>
+
+<div style='height: 200px;'>
+  <form action='' method="POST">
+    {% csrf_token %}
+    {% bootstrap_form comment_form layout="inline" %}
+    {% bootstrap_button button_type="submit" content="댓글작성" %}
+  </form>
+</div>
 
 {% endblock body %}
