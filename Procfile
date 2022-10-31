@@ -1,0 +1,1 @@
+web: gunicorn pjt_django.wsgi --log-file -
