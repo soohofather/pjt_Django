@@ -19,19 +19,21 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav me-auto">
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'reviews:index' %}">Home</a>
               </li>
+            </ul>
+            <ul class="navbar-nav">
               {% if request.user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link">{{ request.user }}님, 환영합니다^^</a>
+              </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'accounts:detail' request.user.pk %}">회원정보</a>
               </li>
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'accounts:logout' %}">로그아웃</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link">{{ request.user }}님, 환영합니다^^</a>
                 </li>
               {% else %}
                 <li class="nav-item">
